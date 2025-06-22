@@ -24,7 +24,7 @@ static void
 tbzmeter(bool indirect, bool fncall)
 {
     if (args.meter == METER_BRANCH_RESUME)
-        mkinsn("mov x18, x30");
+        mkinsn("mov x28, x30");
     if (fncall)
         mkdirective(bundle_align());
     mkdirective(".bundle_lock");

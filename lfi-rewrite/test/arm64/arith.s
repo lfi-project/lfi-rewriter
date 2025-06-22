@@ -12,17 +12,17 @@ fmov d10, 2.5e1+1
 ------
 add sp, sp, #16
 >>>
-add x22, sp, #16
-add sp, x21, w22, uxtw
+add x26, sp, #16
+add sp, x27, w22, uxtw
 ------
 sub sp, sp, x0
 >>>
-sub x22, sp, x0
-add sp, x21, w22, uxtw
+sub x26, sp, x0
+add sp, x27, w22, uxtw
 ------
 mov sp, x0
 >>>
-add sp, x21, w0, uxtw
+add sp, x27, w0, uxtw
 ------
 add x25, x1, w25, sxtw
 >>>
@@ -30,5 +30,5 @@ add x25, x1, w25, sxtw
 ------
 sub sp, sp, #8 // Storing d9 using { sub sp,sp,#8; str d9,[sp] } is giving bus error.
 >>>
-sub x22, sp, #8 
-add sp, x21, w22, uxtw
+sub x26, sp, #8 
+add sp, x27, w22, uxtw

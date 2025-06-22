@@ -1,14 +1,14 @@
 svc #0
 >>>
-mov x22, x30
-ldr x30, [x21]
+mov x26, x30
+ldr x30, [x27]
 blr x30
-add x30, x21, w22, uxtw
+add x30, x27, w22, uxtw
 ------
-ldr x21, [x0]
+ldr x27, [x0]
 >>>
 ------
-ldp x20, x21, [x0]
+ldp x20, x27, [x0]
 >>>
-add x18, x21, w0, uxtw
-ldp x20, xzr, [x18]
+add x28, x27, w0, uxtw
+ldp x20, xzr, [x28]

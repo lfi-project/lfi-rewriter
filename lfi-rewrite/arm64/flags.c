@@ -43,7 +43,7 @@ arm64_getflags(enum flags compiler)
     default:
         assert(0);
     }
-    flags = xasprintf("%s -ffixed-x18 -ffixed-x21 -ffixed-x22 -ffixed-x30", flags);
+    flags = xasprintf("%s -ffixed-x28 -ffixed-x27 -ffixed-x26 -ffixed-x30", flags);
     switch (args.meter) {
     case METER_BRANCH:
     case METER_BRANCH_RESUME:

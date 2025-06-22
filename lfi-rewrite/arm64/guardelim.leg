@@ -15,7 +15,7 @@ static bool redundant;
 
 Top = Guard | Branch | ModMulti | Mod
 
-Guard = 'add' SEP 'x18' - COMMA 'x21' - COMMA w:WREG COMMA 'uxtw' - {
+Guard = 'add' SEP 'x28' - COMMA 'x27' - COMMA w:WREG COMMA 'uxtw' - {
     if (guardsrc && strcmp(num(guardsrc), num(w.val)) == 0) {
         redundant = true;
         rfree(w);
@@ -29,14 +29,14 @@ Guard = 'add' SEP 'x18' - COMMA 'x21' - COMMA w:WREG COMMA 'uxtw' - {
 # modify their first two operands, rather than conservatively assuming all
 # instructions do.
 ModMulti = (!NoMod ID) SEP r1:REG COMMA r2:REG rest:REMAINDER {
-    if (guardsrc && (strcmp(num(guardsrc), num(r1.val)) == 0 || strcmp(num(guardsrc), num(r2.val)) == 0 || strcmp(num(r1.val), "18") == 0)) {
+    if (guardsrc && (strcmp(num(guardsrc), num(r1.val)) == 0 || strcmp(num(guardsrc), num(r2.val)) == 0 || strcmp(num(r1.val), "28") == 0)) {
         guardsrc = NULL;
     }
     rfree(r1); rfree(r2); rfree(rest);
 }
 
 Mod = (!NoMod ID) SEP r:REG rest:REMAINDER {
-    if (guardsrc && (strcmp(num(guardsrc), num(r.val)) == 0 || strcmp(num(r.val), "18") == 0)) {
+    if (guardsrc && (strcmp(num(guardsrc), num(r.val)) == 0 || strcmp(num(r.val), "28") == 0)) {
         guardsrc = NULL;
     }
     rfree(r); rfree(rest);

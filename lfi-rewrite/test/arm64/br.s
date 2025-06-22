@@ -1,12 +1,12 @@
 br x0
 >>>
-add x18, x21, w0, uxtw
-br x18
+add x28, x27, w0, uxtw
+br x28
 ------
 blr x0
 >>>
-add x18, x21, w0, uxtw
-blr x18
+add x28, x27, w0, uxtw
+blr x28
 ------
 ret
 >>>
@@ -15,11 +15,11 @@ ret
 .tlsdesccall _foo
 blr x0
 >>>
-add x18, x21, w0, uxtw
+add x28, x27, w0, uxtw
 .tlsdesccall _foo
-blr x18
+blr x28
 ------
 ret x15
 >>>
-add x18, x21, w15, uxtw
-ret x18
+add x28, x27, w15, uxtw
+ret x28
