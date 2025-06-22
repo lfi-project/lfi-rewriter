@@ -7,5 +7,6 @@ project(
 argp = subproject('argp').get_variable('argp_dep')
 go = find_program('go')
 
-subdir('src')
+subdir('lfi-rewrite')
+subdir('lfi-postlink')
 subdir('test')
