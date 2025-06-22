@@ -7,7 +7,7 @@
 #include "op.h"
 #include "output.h"
 
-static char doc[] = "lfi-leg: rewrite assembly files to be compatible with LFI";
+static char doc[] = "lfi-rewrite: rewrite assembly files to be compatible with LFI";
 
 static char args_doc[] = "INPUT";
 
