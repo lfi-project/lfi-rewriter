@@ -5,23 +5,23 @@ mov w0, w0
 ------
 str x30, [x0]
 >>>
-mov w22, w30
+mov w26, w30
 str x26, [x27, w0, uxtw]
 ------
 str x30, [sp]
 >>>
-mov w22, w30
+mov w26, w30
 str x26, [sp]
 ------
 stp x29, x30, [sp]
 >>>
-mov w22, w30
+mov w26, w30
 stp x29, x26, [sp]
 ------
 str x30, [x0, #0xf0]
 >>>
 add x28, x27, w0, uxtw
-mov w22, w30
+mov w26, w30
 str x26, [x28, #0xf0]
 ------
 mov x29, sp

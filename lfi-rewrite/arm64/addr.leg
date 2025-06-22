@@ -41,7 +41,7 @@ AddrOpt = (
     | (LB r1:XREG COMMA r2:REG RB) {
         $$ = (Result) {
             .pre = xasprintf("add x26, %s, %s", r1.val, r2.val),
-            .val = strdup("[x27, w22, uxtw]"),
+            .val = strdup("[x27, w26, uxtw]"),
         };
         rfree(r1); rfree(r2);
     }
@@ -87,7 +87,7 @@ AddrOpt = (
             $$.val = xasprintf("[x28, %s, %s]", r2.val, m.val);
         } else {
             $$.pre = xasprintf("add x26, %s, %s, %s", r1.val, r2.val, m.val);
-            $$.val = strdup("[x27, w22, uxtw]");
+            $$.val = strdup("[x27, w26, uxtw]");
         }
         rfree(r1); rfree(r2); rfree(m);
     }
@@ -95,7 +95,7 @@ AddrOpt = (
     | (LB r1:XREG_SP COMMA r2:XREG COMMA m:ADDR_MOD RB) {
         $$ = (Result) {
             .pre = xasprintf("add x26, %s, %s, %s", r1.val, r2.val, m.val),
-            .val = strdup("[x27, w22, uxtw]"),
+            .val = strdup("[x27, w26, uxtw]"),
         };
         rfree(r1); rfree(r2); rfree(m);
     }

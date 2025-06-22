@@ -17,20 +17,20 @@ Syscall = < 'svc' - (!EOL .)* > - {
     if (!args.poc)
         mkinsn("mov x26, x30");
     else
-        mkinsn("mov w22, w30");
+        mkinsn("mov w26, w30");
     mkinsn("ldr x30, [%s]", args.sysexternal ? "x25" : "x27");
     mkinsn("blr x30");
-    mkinsn("add x30, x27, w22, uxtw");
+    mkinsn("add x30, x27, w26, uxtw");
 }
 
 Retcall = ('//lfi:' | '#lfi:') 'rtcall_return' {
     if (!args.poc)
         mkinsn("mov x26, x30");
     else
-        mkinsn("mov w22, w30");
+        mkinsn("mov w26, w30");
     mkinsn("ldr x30, [%s, #24]", args.sysexternal ? "x25" : "x27");
     mkinsn("blr x30");
-    mkinsn("add x30, x27, w22, uxtw");
+    mkinsn("add x30, x27, w26, uxtw");
 }
 
 %%

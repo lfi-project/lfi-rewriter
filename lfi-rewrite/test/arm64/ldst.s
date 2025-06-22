@@ -10,7 +10,7 @@ ldp x9, x10, [x28]
 ldrh w12, [x16, w12, uxtw]
 >>>
 add x26, x16, w12, uxtw
-ldrh w12, [x27, w22, uxtw]
+ldrh w12, [x27, w26, uxtw]
 ------
 ld1 { v16.s }[1], [x11]
 >>>
@@ -57,12 +57,12 @@ add x8, x8, #32
 ldp x29, x30, [sp], 16
 >>>
 ldp x29, x26, [sp], 16
-add x30, x27, w22, uxtw
+add x30, x27, w26, uxtw
 ------
 ldr x30, [sp, #16]
 >>>
 ldr x26, [sp, #16]
-add x30, x27, w22, uxtw
+add x30, x27, w26, uxtw
 ------
 ld1 { v0.s }[1], [x8], x10
 >>>
@@ -123,7 +123,7 @@ ldp x29, x30, [x19, #0xAf]
 >>>
 add x28, x27, w19, uxtw
 ldp x29, x26, [x28, #0xAf]
-add x30, x27, w22, uxtw
+add x30, x27, w26, uxtw
 ------
 str x30, [x0]
 >>>
@@ -141,7 +141,7 @@ str x25, [x27, w0, uxtw]
 ldp x25, x30, [sp, #30]
 >>>
 ldp x25, x26, [sp, #30]
-add x30, x27, w22, uxtw
+add x30, x27, w26, uxtw
 ------
 adrp x0, :got:x;ldr x0, [x0, :got_lo12:x]
 >>>
@@ -157,12 +157,12 @@ stxrb w11, w10, [x28]
 ldr x12, [x11, x0]
 >>>
 add x26, x11, x0
-ldr x12, [x27, w22, uxtw]
+ldr x12, [x27, w26, uxtw]
 ------
 ldr w4, [sp, w3, uxtw #2]
 >>>
 add x26, sp, w3, uxtw #2
-ldr w4, [x27, w22, uxtw]
+ldr w4, [x27, w26, uxtw]
 ------
 ld1sb   {z4.h}, p0/z, [x6]
 >>>

@@ -30,11 +30,11 @@ ModAddSub = i:ADDSUB res:RESREG COMMA r1:REG COMMA r2:REG {
         mkinsn("%s %s, %s, %s", i.val, res.val, r1.val, r2.val);
     } else if (isaligned(res.val)) {
         mkinsn("%s x26, %s, %s", i.val, r1.val, r2.val);
-        mkinsn("add x28, x27, w22, uxtw");
+        mkinsn("add x28, x27, w26, uxtw");
         mkinsn("bic sp, x28, 0xf");
     } else {
         mkinsn("%s x26, %s, %s", i.val, r1.val, r2.val);
-        mkinsn("add %s, x27, w22, uxtw", res.val);
+        mkinsn("add %s, x27, w26, uxtw", res.val);
     }
     rfree(r1); rfree(r2); rfree(res); rfree(i)
 }
@@ -48,7 +48,7 @@ ModSpecial = i:MODINST res:RESREG COMMA r:REMAINDER {
         mkinsn("%s %s, %s", i.val, res.val, r.val);
     } else {
         mkinsn("%s x26, %s", i.val, r.val);
-        mkinsn("add %s, x27, w22, uxtw", res.val);
+        mkinsn("add %s, x27, w26, uxtw", res.val);
     }
     rfree(r); rfree(res); rfree(i);
 }
@@ -61,7 +61,7 @@ LdNormalRes = 'ldr' - r:RESREG COMMA rest:REMAINDER {
         mkinsn("ldr %s, %s", r.val, rest.val);
     } else if (!isfixed(r.val)) {
         mkinsn("ldr x26, %s", rest.val);
-        mkinsn("add %s, x27, w22, uxtw", r.val);
+        mkinsn("add %s, x27, w26, uxtw", r.val);
     }
     rfree(r); rfree(rest);
 }
@@ -70,12 +70,12 @@ LdMultiRes1 = 'ldp' - res:RESREG COMMA reg:REG COMMA rest:REMAINDER {
     if (!isfixed(res.val) && !isres(res.val)) {
         if (isres(reg.val)) {
             mkinsn("ldp %s, x26, %s", res.val, rest.val);
-            mkinsn("add %s, x27, w22, uxtw", reg.val);
+            mkinsn("add %s, x27, w26, uxtw", reg.val);
         } else
             mkinsn("ldp %s, %s, %s", res.val, reg.val, rest.val);
     } else if (!isfixed(res.val)) {
         mkinsn("ldp x26, %s, %s", reg.val, rest.val);
-        mkinsn("add %s, x27, w22, uxtw", res.val);
+        mkinsn("add %s, x27, w26, uxtw", res.val);
     } else {
         mkinsn("ldp xzr, %s, %s", reg.val, rest.val);
     }
@@ -87,7 +87,7 @@ LdMultiRes2 = 'ldp' - reg:REG COMMA res:RESREG COMMA rest:REMAINDER {
         mkinsn("ldp %s, %s, %s", reg.val, res.val, rest.val);
     } else if (!isfixed(res.val)) {
         mkinsn("ldp %s, x26, %s", reg.val, rest.val);
-        mkinsn("add %s, x27, w22, uxtw", res.val);
+        mkinsn("add %s, x27, w26, uxtw", res.val);
     } else {
         mkinsn("ldp %s, xzr, %s", reg.val, rest.val);
     }

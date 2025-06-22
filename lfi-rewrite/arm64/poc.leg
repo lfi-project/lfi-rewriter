@@ -41,7 +41,7 @@ StRes = StNormalResAddr | StMultiRes1Addr | StMultiRes2Addr | StNormalRes | StMu
 StNormalResAddr = 'str' - res:RESREG COMMA r:AddrPoc {
     mkinsn("%s", r.pre);
     if (!isfixed(res.val)) {
-        mkinsn("mov w22, w%s", num(res.val));
+        mkinsn("mov w26, w%s", num(res.val));
         mkinsn("str x26, %s", r.val);
     }
     rfree(r); rfree(res);
@@ -50,7 +50,7 @@ StNormalResAddr = 'str' - res:RESREG COMMA r:AddrPoc {
 StMultiRes1Addr = 'stp' - res:RESREG COMMA reg:RESREG COMMA r:AddrPoc {
     mkinsn("%s", r.pre);
     if (!isfixed(res.val)) {
-        mkinsn("mov w22, w%s", num(res.val));
+        mkinsn("mov w26, w%s", num(res.val));
         mkinsn("stp x26, %s, %s", reg.val, r.val);
     } else {
         mkinsn("stp xzr, %s, %s", reg.val, r.val);
@@ -61,7 +61,7 @@ StMultiRes1Addr = 'stp' - res:RESREG COMMA reg:RESREG COMMA r:AddrPoc {
 StMultiRes2Addr = 'stp' - reg:REG COMMA res:RESREG COMMA r:AddrPoc {
     mkinsn("%s", r.pre);
     if (!isfixed(res.val)) {
-        mkinsn("mov w22, w%s", num(res.val));
+        mkinsn("mov w26, w%s", num(res.val));
         mkinsn("stp %s, x26, %s", reg.val, r.val);
     } else {
         mkinsn("stp %s, xzr, %s", reg.val, r.val);
@@ -71,7 +71,7 @@ StMultiRes2Addr = 'stp' - reg:REG COMMA res:RESREG COMMA r:AddrPoc {
 
 StNormalRes = 'str' - res:RESREG COMMA r:REMAINDER {
     if (!isfixed(res.val)) {
-        mkinsn("mov w22, w%s", num(res.val));
+        mkinsn("mov w26, w%s", num(res.val));
         mkinsn("str x26, %s", r.val);
     }
     rfree(r); rfree(res);
@@ -79,7 +79,7 @@ StNormalRes = 'str' - res:RESREG COMMA r:REMAINDER {
 
 StMultiRes1 = 'stp' - res:RESREG COMMA reg:REG COMMA r:REMAINDER {
     if (!isfixed(res.val)) {
-        mkinsn("mov w22, w%s", num(res.val));
+        mkinsn("mov w26, w%s", num(res.val));
         mkinsn("stp x26, %s, %s", reg.val, r.val);
     } else {
         mkinsn("stp xzr, %s, %s", reg.val, r.val);
@@ -89,7 +89,7 @@ StMultiRes1 = 'stp' - res:RESREG COMMA reg:REG COMMA r:REMAINDER {
 
 StMultiRes2 = 'stp' - reg:REG COMMA res:RESREG COMMA r:REMAINDER {
     if (!isfixed(res.val)) {
-        mkinsn("mov w22, w%s", num(res.val));
+        mkinsn("mov w26, w%s", num(res.val));
         mkinsn("stp %s, x26, %s", reg.val, r.val);
     } else {
         mkinsn("stp %s, xzr, %s", reg.val, r.val);
