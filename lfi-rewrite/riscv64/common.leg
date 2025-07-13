@@ -51,9 +51,10 @@ MODINST = < (
 ) > - { $$ = (Result) { .val = strndup(yytext, yyleng) } }
 
 RESREG = < (
-      'x21'
-    | 'x18'
+      'x27'
+    | 'x26'
     | 'x25'
+    | 'x24'
     | 'ra'
     | 'x1'
     | 'sp'

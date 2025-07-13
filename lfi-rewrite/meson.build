@@ -19,3 +19,5 @@ lfi_leg = executable('lfi-rewrite', files('main.c'), srcs, leg_srcs, install: tr
 liblfi_leg = static_library('lfirw', files('lib.c'), srcs, leg_srcs, install: true, c_args: args)
 
 install_headers('include/lfirw.h')
+
+subdir('test')

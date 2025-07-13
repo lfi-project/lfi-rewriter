@@ -17,8 +17,8 @@ ModSpecial = i:MODINST res:RESREG COMMA r:REMAINDER {
     if (!isfixed(res.val) && !isres(res.val)) {
         mkinsn("%s %s, %s", i.val, res.val, r.val);
     } else {
-        mkinsn("%s x22, %s", i.val, r.val);
-        mkinsn("add.uw %s, x22, x21", res.val);
+        mkinsn("%s x24, %s", i.val, r.val);
+        mkinsn("add.uw %s, x24, x27", res.val);
     }
     rfree(r); rfree(res); rfree(i);
 }
@@ -30,8 +30,8 @@ LdNormalRes = 'ld' - r:RESREG COMMA rest:REMAINDER {
         // false positive on RESREG due to flags
         mkinsn("ld %s, %s", r.val, rest.val);
     } else if (!isfixed(r.val)) {
-        mkinsn("ld x22, %s", rest.val);
-        mkinsn("add.uw %s, x22, x21", r.val);
+        mkinsn("ld x24, %s", rest.val);
+        mkinsn("add.uw %s, x24, x27", r.val);
     }
     rfree(r); rfree(rest);
 }

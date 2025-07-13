@@ -10,7 +10,7 @@ riscv64_getflags(enum flags compiler)
         return "";
     char* flags = "";
     
-    flags = xasprintf("%s -ffixed-x18 -ffixed-x21 -ffixed-x22 -ffixed-x1", flags);
+    flags = xasprintf("%s -ffixed-x26 -ffixed-x27 -ffixed-x24 -ffixed-x1", flags);
     
     return flags;
 }

@@ -9,4 +9,3 @@ go = find_program('go')
 
 subdir('lfi-rewrite')
 subdir('lfi-postlink')
-subdir('test')

@@ -14,8 +14,8 @@ Top = RvBr
 
 
 RvBr = b:BRANCH r:REG {
-    mkinsn("add.uw x18, %s, x21", r.val);
-    mkinsn("%s x18", b.val);
+    mkinsn("add.uw x26, %s, x27", r.val);
+    mkinsn("%s x26", b.val);
     rfree(b); rfree(r);
 }
 
