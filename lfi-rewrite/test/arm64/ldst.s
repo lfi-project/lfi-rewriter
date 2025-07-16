@@ -178,3 +178,6 @@ str zt0, [x16]
 >>>
 add x28, x27, w16, uxtw
 str zt0, [x28]
+------
+ldp x27, x28, [x28]
+>>>

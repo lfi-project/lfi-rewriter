@@ -76,7 +76,7 @@ LdMultiRes1 = 'ldp' - res:RESREG COMMA reg:REG COMMA rest:REMAINDER {
     } else if (!isfixed(res.val)) {
         mkinsn("ldp x26, %s, %s", reg.val, rest.val);
         mkinsn("add %s, x27, w26, uxtw", res.val);
-    } else {
+    } else if (!isfixed(reg.val)) {
         mkinsn("ldp xzr, %s, %s", reg.val, rest.val);
     }
     rfree(rest); rfree(reg); rfree(res);
