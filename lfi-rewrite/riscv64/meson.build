@@ -9,6 +9,7 @@ leg_inputs = [
   'syscall.leg',
   'parse.leg',
   'special.leg',
+  'tls.leg',
 ]
 
 leg_addr_inputs = [

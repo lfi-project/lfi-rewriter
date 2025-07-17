@@ -12,10 +12,9 @@
 %}
 
 Syscall = < 'ecall' - (!EOL .)* > - {
-    mkinsn("sd ra, (sp)");
-    mkinsn("ld ra, (%s)", args.sysexternal ? "x25" : "x27");
+    mkinsn("mv x24, ra");
+    mkinsn("ld ra, (%s)", "x27");
     mkinsn("jalr ra");
-    mkinsn("ld x24, (sp)");
     mkinsn("add.uw ra, x24, x27");
 }
 

@@ -1,0 +1,69 @@
+%{
+#include "arm64/arm64.h"
+#include "op.h"
+#include "args.h"
+
+#define YY_INPUT(ctx, buf, result, max_size)   \
+{                                              \
+    char yyc = ctx->op->text[ctx->idx];        \
+    ctx->idx += yyc != 0;                      \
+    result = yyc == 0 ? 0 : (*(buf) = yyc, 1); \
+}                                              \
+
+static void
+swap(char* r0, char* r1)
+{
+    mkinsn("xor %s, %s, %s", r0, r0, r1);
+    mkinsn("xor %s, %s, %s", r1, r0, r1);
+    mkinsn("xor %s, %s, %s", r0, r0, r1);
+}
+%}
+
+Top = ReadTP_a0 | ReadTP_any | WriteTP_any !.
+
+ReadTP_a0 = 'mv' SEP 'a0' - COMMA 'tp' - {
+    mkinsn("mv x24, ra");
+    mkinsn("ld ra, 8(%s)", "x27");
+    mkinsn("jalr ra");
+    mkinsn("add.uw ra, x24, x27");
+}
+
+ReadTP_any = 'mv' SEP r:REG COMMA 'tp' - {
+    mkinsn("mv %s, a0", r.val);
+    mkinsn("mv x24, ra");
+    mkinsn("ld ra, 8(%s)", "x27");
+    mkinsn("jalr ra");
+    swap("a0", r.val);
+    mkinsn("add.uw ra, x24, x27");
+    rfree(r);
+}
+
+WriteTP_any = 'mv' SEP 'tp' COMMA r:REG - {
+    mkinsn("mv x24, ra");
+    if (strcmp(r.val, "a0") != 0)
+        swap("a0", r.val);
+    mkinsn("ld ra, 16(%s)", "x27");
+    mkinsn("jalr ra");
+    if (strcmp(r.val, "a0") != 0)
+        swap("a0", r.val);
+    mkinsn("add.uw ra, x24, x27");
+    rfree(r);
+}
+
+%%
+
+void
+riscv64_tlspass(struct op* op)
+{
+    if (!op->insn)
+        return;
+    yycontext ctx;
+    memset(&ctx, 0, sizeof(yycontext));
+    ctx.op = op;
+    oplocate(op);
+    if (yyparse(&ctx)) {
+        opremove(op);
+        opfree(op);
+    }
+    yyrelease(&ctx);
+}

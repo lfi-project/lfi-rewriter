@@ -39,6 +39,7 @@ tests = {
     'riscv64/ldst.s',
     'riscv64/storesonly.s',
     'riscv64/syscall.s',
+    'riscv64/tls.s',
   ]
 }
 

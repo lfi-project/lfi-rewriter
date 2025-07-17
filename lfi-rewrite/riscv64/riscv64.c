@@ -20,6 +20,7 @@ void riscv64_specialpass(struct op*);
 void riscv64_branchpass(struct op*);
 void riscv64_loadspass(struct op*);
 void riscv64_storespass(struct op*);
+void riscv64_tlspass(struct op*);
 void riscv64_syscallpass(struct op*);
 
 static Pass passes[] = {
@@ -27,6 +28,7 @@ static Pass passes[] = {
     (Pass) { .fn = &riscv64_loadspass },
     (Pass) { .fn = &riscv64_storespass },
     (Pass) { .fn = &riscv64_branchpass },
+    (Pass) { .fn = &riscv64_tlspass },
     (Pass) { .fn = &riscv64_syscallpass },
 };
 
