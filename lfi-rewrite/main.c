@@ -269,7 +269,7 @@ main(int argc, char** argv)
     input = argopen(args.input, "r", stdin);
     output = argopen(args.output, "w", stdout);
 
-    char* lfidebug = getenv("LFIDEBUG");
+    char* lfidebug = getenv("LFI_DEBUG");
     if (lfidebug) {
         // write input to a debug location
         FILE* debug = argopen("debug-in.s", "w", NULL);
