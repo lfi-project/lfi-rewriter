@@ -104,7 +104,7 @@ main(int argc, char** argv)
     args.input = "";
     argp_parse(&argp, argc, argv, ARGP_NO_HELP, 0, &args);
 
-    const char* prefix = getenv("LFI_PREFIXPAD");
+    const char* prefix = getenv("LFI_PREFIX_PAD");
     if (prefix && strcmp(prefix, "1") == 0)
         args.prefix = true;
 
