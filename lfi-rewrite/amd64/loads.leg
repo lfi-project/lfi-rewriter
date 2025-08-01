@@ -10,7 +10,7 @@
 }                                              \
 %}
 
-Top = (Lea | LoadH | Load | Triple0 | Triple1) !.
+Top = (Triple0 | Triple1 | Lea | LoadH | Load) !.
 
 Lea = l:LEA a:Addr COMMA r:REG {
     mkinsn("%s %s, %s", l.val, a.unmod, r.val);

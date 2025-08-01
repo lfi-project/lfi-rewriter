@@ -116,3 +116,8 @@ movaps %xmm0, _ZN3std3sys3pal4unix14stack_overflow3imp5GUARD29_$u7b$$u7b$constan
 >>>
 .bundle_align_mode 5
 movaps %xmm0, %gs:_ZN3std3sys3pal4unix14stack_overflow3imp5GUARD29_$u7b$$u7b$constant$u7d$$u7d$28_$u7b$$u7b$closure$u7d$$u7d$3VAL17h5082f51ad7913d78E@TPOFF(%eax)
+------
+vfmadd231ps -0x1c(%r9,%r10,4),%ymm8,%ymm6
+>>>
+.bundle_align_mode 5
+vfmadd231ps %gs:-0x1c(%r9d, %r10d, 4), %ymm8, %ymm6
