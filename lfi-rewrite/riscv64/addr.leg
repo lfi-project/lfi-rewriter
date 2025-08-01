@@ -21,18 +21,18 @@ ldst(Result l, Result rt, Result addr)
 
 AddrP = (
     # i(xN)
-      (i:IMM LP (!'x26' !'sp' r:REG) RP) {
+      (i:IMM LP (!'x9' !'sp' r:REG) RP) {
         $$ = (Result) {
-            .pre = xasprintf("add.uw x26, %s, x27", r.val),
-            .val = xasprintf("%s(x26)", i.val),
+            .pre = xasprintf("add.uw x9, %s, x27", r.val),
+            .val = xasprintf("%s(x9)", i.val),
         };
         rfree(r); rfree(i);
     }
     # (xN)
-    | (LP (!'x26' !'sp' r:REG) RP) {
+    | (LP (!'x9' !'sp' r:REG) RP) {
          $$ = (Result) {
-            .pre = xasprintf("add.uw x26, %s, x27", r.val),
-            .val = xasprintf("(x26)"),
+            .pre = xasprintf("add.uw x9, %s, x27", r.val),
+            .val = xasprintf("(x9)"),
         };
         rfree(r);
     }

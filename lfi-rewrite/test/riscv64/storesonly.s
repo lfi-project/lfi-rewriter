@@ -1,9 +1,11 @@
 sd t0, (t1)
 >>>
-add.uw x26, t1, x27
-sd t0, (x26)
+.bundle_align_mode 2
+add.uw x9, t1, x27
+sd t0, (x9)
 ------
 sd t0, 16(t1)
 >>>
-add.uw x26, t1, x27
-sd t0, 16(x26)
+.bundle_align_mode 2
+add.uw x9, t1, x27
+sd t0, 16(x9)
