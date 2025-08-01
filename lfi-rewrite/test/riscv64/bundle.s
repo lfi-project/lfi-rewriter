@@ -1,1 +1,3 @@
-jr x14
+jalr x14
+
+call something_func

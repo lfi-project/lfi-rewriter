@@ -10,19 +10,31 @@
 }                                              \
 %}
 
-Top = RvBr
+Top = RvBr | RvCall
 
 
 RvBr = b:BRANCH r:REG {
-    mkdirective(".bundle_lock");
-    mkinsn("add.uw x26, %s, x27", r.val);
-    mkinsn("andi x25, x26, %s", bundle_mask_constant());
-    mkinsn("%s x26", b.val);
-    mkdirective(".bundle_unlock");
-    mkdirective(bundle_align());
+    if (strcmp(b.val, "jalr") == 0) {
+        mkdirective(".bundle_lock align_to_end");
+        mkinsn("%s %s", b.val, r.val);
+        mkdirective(".bundle_unlock");
+    } else {
+        mkdirective(".bundle_lock");
+        mkinsn("add.uw x26, %s, x27", r.val);
+        mkinsn("andi x25, x26, %s", bundle_mask_constant());
+        mkinsn("%s x25", b.val);  
+        mkdirective(".bundle_unlock");
+        mkdirective(bundle_align());
+    }
     rfree(b); rfree(r);
 }
 
+RvCall = 'call' - t:NAME {
+    mkdirective(".bundle_lock align_to_end");
+    mkinsn("call %s", t.val);
+    mkdirective(".bundle_unlock");
+    rfree(t);
+}
 
 BRANCH = < ('jr' | 'jalr') > - {
     $$ = (Result) { .val = strndup(yytext, yyleng) };
