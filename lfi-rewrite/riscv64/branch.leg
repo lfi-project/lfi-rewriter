@@ -1,5 +1,5 @@
 %{
-#include "arm64/arm64.h"
+#include "riscv64/riscv64.h"
 #include "op.h"
 
 #define YY_INPUT(ctx, buf, result, max_size)   \
@@ -14,8 +14,12 @@ Top = RvBr
 
 
 RvBr = b:BRANCH r:REG {
+    mkdirective(".bundle_lock");
     mkinsn("add.uw x26, %s, x27", r.val);
+    mkinsn("andi x25, x26, %s", bundle_mask_constant());
     mkinsn("%s x26", b.val);
+    mkdirective(".bundle_unlock");
+    mkdirective(bundle_align());
     rfree(b); rfree(r);
 }
 
