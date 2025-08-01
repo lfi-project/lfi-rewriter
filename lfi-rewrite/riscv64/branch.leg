@@ -2,6 +2,8 @@
 #include "riscv64/riscv64.h"
 #include "op.h"
 
+static bool bundle_mode_written = false;
+
 #define YY_INPUT(ctx, buf, result, max_size)   \
 {                                              \
     char yyc = ctx->op->text[ctx->idx];        \
@@ -10,19 +12,25 @@
 }                                              \
 %}
 
-Top = RvBr | RvCall
-
+Top =  RvBr | RvCall
 
 RvBr = b:BRANCH r:REG {
+    
+    if (!bundle_mode_written) {
+        mkdirective(bundle_align_mode());
+        bundle_mode_written = true;
+    }
+    
+    mkinsn("add.uw x26, %s, x27", r.val);
+    mkinsn("andi x25, x26, %s", bundle_mask_constant());
+    
     if (strcmp(b.val, "jalr") == 0) {
         mkdirective(".bundle_lock align_to_end");
-        mkinsn("%s %s", b.val, r.val);
+        mkinsn("jalr x25");
         mkdirective(".bundle_unlock");
     } else {
         mkdirective(".bundle_lock");
-        mkinsn("add.uw x26, %s, x27", r.val);
-        mkinsn("andi x25, x26, %s", bundle_mask_constant());
-        mkinsn("%s x25", b.val);  
+        mkinsn("jr x25");
         mkdirective(".bundle_unlock");
         mkdirective(bundle_align());
     }
