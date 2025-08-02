@@ -25,7 +25,6 @@ RvBr = b:BRANCH r:REG {
         mkdirective(".bundle_lock");
         mkinsn("jr x25");
         mkdirective(".bundle_unlock");
-        mkdirective(bundle_align());
     }
     rfree(b); rfree(r);
 }

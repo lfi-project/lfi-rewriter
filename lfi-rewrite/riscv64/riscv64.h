@@ -39,6 +39,8 @@ bundle_align_mode()
     switch (args.cfi) {
     case CFI_BUNDLE4:
         return ".bundle_align_mode 2";
+    case CFI_BUNDLE8:
+        return ".bundle_align_mode 3";
     case CFI_HW:
         return "";
     default: 
@@ -53,6 +55,8 @@ bundle_mask_constant()
     switch (args.cfi) {
     case CFI_BUNDLE4:
         return "0xfffffffffffffffc";
+    case CFI_BUNDLE8:
+        return "0xfffffffffffffff8";
     case CFI_HW:
         // no mask (just clear top 32 bits)
         return "0xffffffff";
@@ -68,6 +72,8 @@ bundle_align()
     switch (args.cfi) {
     case CFI_BUNDLE4:
         return ".p2align 2";
+    case CFI_BUNDLE8:
+        return ".p2align 3";
     case CFI_HW:
         return ".p2align 0";
     default: 

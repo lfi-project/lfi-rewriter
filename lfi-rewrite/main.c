@@ -291,7 +291,7 @@ main(int argc, char** argv)
 
      if (strcmp(args.arch, "riscv64") == 0) {
         if (args.cfi == CFI_BUNDLE32) {  
-            args.cfi = CFI_BUNDLE4;
+            args.cfi = CFI_BUNDLE8;
         }
     }
 

@@ -19,7 +19,7 @@ swap(char* r0, char* r1)
 }
 %}
 
-Top = ReadTP_a0 | ReadTP_any | WriteTP_any !.
+Top = ReadTP_a0 | ReadTP_any | AddTP_a0 | WriteTP_any !.
 
 ReadTP_a0 = 'mv' SEP 'a0' - COMMA 'tp' - {
     mkinsn("mv x24, ra");
@@ -38,6 +38,18 @@ ReadTP_any = 'mv' SEP r:REG COMMA 'tp' - {
     mkinsn("add.uw x26, x24, x27");
     mkinsn("andi ra, x26, %s", bundle_mask_constant());
     rfree(r);
+}
+
+AddTP_a0 = 'add' SEP 'a0' COMMA 'a0' COMMA 'tp' - {
+    mkinsn("sd a1, -8(sp)");
+    mkinsn("mv a1, a0");
+    mkinsn("mv x24, ra");
+    mkinsn("ld ra, 8(%s)", "x27");
+    mkinsn("jalr ra");
+    mkinsn("add.uw x26, x24, x27");
+    mkinsn("andi ra, x26, %s", bundle_mask_constant());
+    mkinsn("add a0, a1, a0");
+    mkinsn("ld a1, -8(sp)");
 }
 
 WriteTP_any = 'mv' SEP 'tp' COMMA r:REG - {
