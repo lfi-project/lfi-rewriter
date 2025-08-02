@@ -37,6 +37,7 @@ tests = {
     'riscv64/arith.s',
     'riscv64/br.s',
     'riscv64/ldst.s',
+    'riscv64/ld.s',
     'riscv64/storesonly.s',
     'riscv64/syscall.s',
     'riscv64/tls.s',

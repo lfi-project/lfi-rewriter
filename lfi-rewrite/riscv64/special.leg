@@ -31,7 +31,12 @@ LdNormalRes = 'ld' - r:RESREG COMMA rest:REMAINDER {
         mkinsn("ld %s, %s", r.val, rest.val);
     } else if (!isfixed(r.val)) {
         mkinsn("ld x24, %s", rest.val);
-        mkinsn("add.uw %s, x24, x27", r.val);
+        if (strcmp(r.val, "ra") == 0) {
+            mkinsn("add.uw x26, x24, x27");
+            mkinsn("andi ra, x26, %s", bundle_mask_constant());
+        } else {
+            mkinsn("add.uw %s, x24, x27", r.val);
+        }
     }
     rfree(r); rfree(rest);
 }

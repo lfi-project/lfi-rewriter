@@ -10,9 +10,17 @@
 Top = LdRv 
 
 LdRv = l:LDRV rt:REG COMMA addr:AddrP {
-    ldst(l, rt, addr);
+    if (strcmp(rt.val, "ra") == 0) {
+        if (addr.pre) mkinsn("%s", addr.pre);
+        mkinsn("%s x24, %s", l.val, addr.val);  
+        mkinsn("add.uw x26, x24, x27");         
+        mkinsn("andi ra, x26, %s", bundle_mask_constant()); 
+        if (addr.post) mkinsn("%s", addr.post);
+        rfree(l); rfree(rt); rfree(addr);
+    } else {
+        ldst(l, rt, addr);
+    }
 }
-
 
 
 # RISCV Loads prefixes
