@@ -4,7 +4,8 @@ mv a0, tp
 mv x24, ra
 ld ra, 8(x27)
 jalr ra
-add.uw ra, x24, x27
+add.uw x26, x24, x27
+andi ra, x26, 0xfffffffffffffffc
 ------
 mv a1, tp
 >>>
@@ -16,7 +17,8 @@ jalr ra
 xor a0, a0, a1
 xor a1, a0, a1
 xor a0, a0, a1
-add.uw ra, x24, x27
+add.uw x26, x24, x27
+andi ra, x26, 0xfffffffffffffffc
 ------
 mv tp, a0
 >>>
@@ -24,7 +26,8 @@ mv tp, a0
 mv x24, ra
 ld ra, 16(x27)
 jalr ra
-add.uw ra, x24, x27
+add.uw x26, x24, x27
+andi ra, x26, 0xfffffffffffffffc
 ------
 mv tp, a1
 >>>
@@ -38,4 +41,5 @@ jalr ra
 xor a0, a0, a1
 xor a1, a0, a1
 xor a0, a0, a1
-add.uw ra, x24, x27
+add.uw x26, x24, x27
+andi ra, x26, 0xfffffffffffffffc

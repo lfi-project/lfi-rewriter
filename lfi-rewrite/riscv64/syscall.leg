@@ -1,5 +1,5 @@
 %{
-#include "arm64/arm64.h"
+#include "riscv64/riscv64.h"
 #include "op.h"
 #include "args.h"
 
@@ -15,7 +15,8 @@ Syscall = < 'ecall' - (!EOL .)* > - {
     mkinsn("mv x24, ra");
     mkinsn("ld ra, (%s)", "x27");
     mkinsn("jalr ra");
-    mkinsn("add.uw ra, x24, x27");
+    mkinsn("add.uw x26, x24, x27");
+    mkinsn("andi ra, x26, %s", bundle_mask_constant());
 }
 
 %%
