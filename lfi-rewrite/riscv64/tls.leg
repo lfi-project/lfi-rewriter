@@ -1,5 +1,5 @@
 %{
-#include "arm64/arm64.h"
+#include "riscv64/riscv64.h"
 #include "op.h"
 #include "args.h"
 
@@ -25,7 +25,8 @@ ReadTP_a0 = 'mv' SEP 'a0' - COMMA 'tp' - {
     mkinsn("mv x24, ra");
     mkinsn("ld ra, 8(%s)", "x27");
     mkinsn("jalr ra");
-    mkinsn("add.uw ra, x24, x27");
+    mkinsn("add.uw x26, x24, x27");
+    mkinsn("andi ra, x26, %s", bundle_mask_constant());
 }
 
 ReadTP_any = 'mv' SEP r:REG COMMA 'tp' - {
@@ -34,7 +35,8 @@ ReadTP_any = 'mv' SEP r:REG COMMA 'tp' - {
     mkinsn("ld ra, 8(%s)", "x27");
     mkinsn("jalr ra");
     swap("a0", r.val);
-    mkinsn("add.uw ra, x24, x27");
+    mkinsn("add.uw x26, x24, x27");
+    mkinsn("andi ra, x26, %s", bundle_mask_constant());
     rfree(r);
 }
 
@@ -46,7 +48,8 @@ WriteTP_any = 'mv' SEP 'tp' COMMA r:REG - {
     mkinsn("jalr ra");
     if (strcmp(r.val, "a0") != 0)
         swap("a0", r.val);
-    mkinsn("add.uw ra, x24, x27");
+    mkinsn("add.uw x26, x24, x27");
+    mkinsn("andi ra, x26, %s", bundle_mask_constant());
     rfree(r);
 }
 

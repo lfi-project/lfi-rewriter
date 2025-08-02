@@ -167,7 +167,11 @@ parse_opt(int key, char* arg, struct argp_state* state)
         args->nosegue = true;
         break;
     case ARG_cfi:
-        if (strcmp(arg, "bundle16") == 0)
+        if (strcmp(arg, "bundle4") == 0)
+            args->cfi = CFI_BUNDLE4;
+        else if (strcmp(arg, "bundle8") == 0)
+            args->cfi = CFI_BUNDLE8;
+        else if (strcmp(arg, "bundle16") == 0)
             args->cfi = CFI_BUNDLE16;
         else if (strcmp(arg, "bundle32") == 0)
             args->cfi = CFI_BUNDLE32;
@@ -283,6 +287,12 @@ main(int argc, char** argv)
 
     if (args.arch == NULL) {
         args.arch = getarch();
+    }
+
+     if (strcmp(args.arch, "riscv64") == 0) {
+        if (args.cfi == CFI_BUNDLE32) {  
+            args.cfi = CFI_BUNDLE4;
+        }
     }
 
     struct output out = (struct output) {};

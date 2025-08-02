@@ -1,6 +1,7 @@
 %{
-#include "arm64/arm64.h"
+#include "riscv64/riscv64.h"
 #include "op.h"
+
 
 #define YY_INPUT(ctx, buf, result, max_size)   \
 {                                              \
@@ -10,15 +11,32 @@
 }                                              \
 %}
 
-Top = RvBr
-
+Top =  RvBr | RvCall
 
 RvBr = b:BRANCH r:REG {
-    mkinsn("add.uw x26, %s, x27", r.val);
-    mkinsn("%s x26", b.val);
+    mkinsn("add.uw x9, %s, x27", r.val);      
+    mkinsn("andi x25, x9, %s", bundle_mask_constant()); 
+    
+    if (strcmp(b.val, "jalr") == 0) {
+        mkdirective(".bundle_lock align_to_end");
+        mkinsn("jalr x25");
+        mkdirective(".bundle_unlock");
+    } else {
+        mkdirective(".bundle_lock");
+        mkinsn("jr x25");
+        mkdirective(".bundle_unlock");
+        mkdirective(bundle_align());
+    }
     rfree(b); rfree(r);
 }
 
+
+RvCall = 'call' - t:NAME {
+    mkdirective(".bundle_lock align_to_end");
+    mkinsn("call %s", t.val);
+    mkdirective(".bundle_unlock");
+    rfree(t);
+}
 
 BRANCH = < ('jr' | 'jalr') > - {
     $$ = (Result) { .val = strndup(yytext, yyleng) };

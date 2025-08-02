@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <assert.h>
 
 #include "args.h"
 
@@ -32,3 +33,73 @@ isres(const char* reg)
     return false;
 }
 
+static char*
+bundle_align_mode()
+{
+    switch (args.cfi) {
+    case CFI_BUNDLE4:
+        return ".bundle_align_mode 2";
+    case CFI_HW:
+        return "";
+    default: 
+        assert(!"unreachable");
+    }
+    assert(0);
+}
+
+static char*
+bundle_mask_constant()
+{
+    switch (args.cfi) {
+    case CFI_BUNDLE4:
+        return "0xfffffffffffffffc";
+    case CFI_HW:
+        // no mask (just clear top 32 bits)
+        return "0xffffffff";
+    default: 
+        assert(!"unreachable");
+    }
+    assert(0);
+}
+
+static char*
+bundle_align()
+{
+    switch (args.cfi) {
+    case CFI_BUNDLE4:
+        return ".p2align 2";
+    case CFI_HW:
+        return ".p2align 0";
+    default: 
+        assert(!"unreachable");
+    }
+    assert(0);
+}
+
+static char*
+bundle_lock()
+{
+    switch (args.cfi) {
+    case CFI_BUNDLE4:
+        return ".bundle_lock";
+    case CFI_HW:
+        return "";
+    default: 
+        assert(!"unreachable");
+    }
+    assert(0);
+}
+
+static char*
+bundle_unlock()
+{
+    switch (args.cfi) {
+    case CFI_BUNDLE4:
+        return ".bundle_unlock";
+    case CFI_HW:
+        return "";
+    default: 
+        assert(!"unreachable");
+    }
+    assert(0);
+}

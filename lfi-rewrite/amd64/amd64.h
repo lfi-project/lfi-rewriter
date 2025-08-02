@@ -93,6 +93,8 @@ bundle_align_mode()
         return ".bundle_align_mode 5\n";
     case CFI_HW:
         return "";
+    default: 
+        assert(!"unreachable");
     }
     assert(0);
 }
@@ -106,6 +108,8 @@ bundle_lock()
         return ".bundle_lock";
     case CFI_HW:
         return "";
+    default: 
+        assert(!"unreachable");
     }
     assert(0);
 }
@@ -119,6 +123,8 @@ bundle_unlock()
         return ".bundle_unlock";
     case CFI_HW:
         return "";
+    default: 
+        assert(!"unreachable");
     }
     assert(0);
 }
@@ -133,6 +139,8 @@ bundle_align()
         return ".p2align 5";
     case CFI_HW:
         return ".p2align 0";
+    default: 
+        assert(!"unreachable");
     }
     assert(0);
 }
@@ -148,6 +156,8 @@ bundle_mask_constant()
     case CFI_HW:
         // no mask (just clear top 32 bits)
         return "ffffffff";
+    default: 
+        assert(!"unreachable");
     }
     assert(0);
 }
@@ -231,6 +241,8 @@ bundle_nop_call()
         return;
     case CFI_HW:
         return;
+    default: 
+        assert(!"unreachable");
     }
     assert(0);
 }
