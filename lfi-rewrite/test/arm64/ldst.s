@@ -181,3 +181,8 @@ str zt0, [x28]
 ------
 ldp x27, x28, [x28]
 >>>
+------
+stlxrb w17, w1, [x2]
+>>>
+add x28, x27, w2, uxtw
+stlxrb w17, w1, [x28]

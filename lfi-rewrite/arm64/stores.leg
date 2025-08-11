@@ -46,7 +46,7 @@ ST_BASIC = < (
 ST_MULTI = < (
       'stp'
     | 'stnp'
-    | 'st' 'l'? 'xr' # note: first arg is a result
+    | 'st' 'l'? 'xr' [bh]? # note: first arg is a result
 ) > - { $$ = (Result) { .val = strndup(yytext, yyleng) } }
 
 # TODO: special case for stores with exclusive monitor
