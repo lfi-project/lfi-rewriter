@@ -99,7 +99,7 @@ nopfix(uint8_t* insns, size_t n, size_t bsz, size_t addr)
     while (count < n) {
         ZyanStatus status = ZydisDecoderDecodeInstruction(&decoder, &context, &insns[count], n-count, &instr);
         if (ZYAN_FAILED(status)) {
-            fprintf(stderr, "nopfix failed %lx\n", addr);
+            fprintf(stderr, "nopfix failed %lx\n", addr + count);
             return;
         }
         if (instr.mnemonic == ZYDIS_MNEMONIC_NOP) {

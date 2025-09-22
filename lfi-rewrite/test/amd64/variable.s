@@ -22,7 +22,7 @@ movq (%rsp), %r11
 .bundle_lock
 andq %r15, %r11
 andq $0xffffffffffffffe0, %r11
-orq %r14, %r11
+addq %r14, %r11
 callq *%r11
 .bundle_unlock
 .p2align 5
@@ -129,7 +129,7 @@ addq %rdi, %rsp
 .bundle_lock
 addq %rdi, %rsp
 andq %r15, %rsp
-orq %r14, %rsp
+addq %r14, %rsp
 .bundle_unlock
 ------
 leaq 0x10(%rbp), %rsp

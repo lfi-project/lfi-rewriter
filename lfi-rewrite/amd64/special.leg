@@ -60,11 +60,11 @@ ModImmSP = m:MODINST i:IMM COMMA '%rsp' - {
         } else {
             mkinsn("%s %s, %%rsp", m.val, i.val);
             mkinsn("andq %%r15, %%rsp");
-            mkinsn("orq %%r14, %%rsp");
+            mkinsn("addq %%r14, %%rsp");
         }
     } else {
         mkinsn("%s %s, %%esp", op, i.val);
-        mkinsn("orq %%r14, %%rsp");
+        mkinsn("addq %%r14, %%rsp");
     }
     mkdirective(".bundle_unlock");
     rfree(m); rfree(i); free(op);
@@ -76,10 +76,10 @@ ModAddrSP = m:MODINST a:Addr COMMA '%rsp' - {
     if (args.p2size == 0) {
         mkinsn("%s %s, %%rsp", m.val, a.unmod);
         mkinsn("andq %%r15, %%rsp");
-        mkinsn("orq %%r14, %%rsp");
+        mkinsn("addq %%r14, %%rsp");
     } else {
         mkinsn("%s %s, %%esp", op, a.unmod);
-        mkinsn("orq %%r14, %%rsp");
+        mkinsn("addq %%r14, %%rsp");
     }
     mkdirective(".bundle_unlock");
     rfree(m); rfree(a); free(op);
@@ -91,10 +91,10 @@ ModRegSP = m:MODINST r:XREG COMMA '%rsp' - {
     if (args.p2size == 0) {
         mkinsn("%s %s, %%rsp", m.val, r.val);
         mkinsn("andq %%r15, %%rsp");
-        mkinsn("orq %%r14, %%rsp");
+        mkinsn("addq %%r14, %%rsp");
     } else {
         mkinsn("%s %s, %%esp", op, lo(r.val));
-        mkinsn("orq %%r14, %%rsp");
+        mkinsn("addq %%r14, %%rsp");
     }
     mkdirective(".bundle_unlock");
     rfree(m); rfree(r); free(op);
@@ -110,7 +110,7 @@ MODINST = < (
 Leave = 'leave' 'q'? - {
     mkdirective(".bundle_lock");
     mkinsn("movl %%ebp, %%esp");
-    mkinsn("orq %%r14, %%rsp");
+    mkinsn("addq %%r14, %%rsp");
     mkdirective(".bundle_unlock");
     mkinsn("popq %%rbp");
 }

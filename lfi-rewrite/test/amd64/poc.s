@@ -16,7 +16,7 @@ xchg %rax, (%rsp)
 movq %rax, %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 jmpq *%r11
 .bundle_unlock
 .p2align 5

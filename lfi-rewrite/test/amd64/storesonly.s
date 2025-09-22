@@ -26,7 +26,7 @@ callq *(%rax, %rdi, 4)
 movq (%rax, %rdi, 4), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 callq *%r11
 .bundle_unlock
 .p2align 5
@@ -37,7 +37,7 @@ jmpq *(%rax, %rdi, 4)
 movq (%rax, %rdi, 4), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 jmpq *%r11
 .bundle_unlock
 ------

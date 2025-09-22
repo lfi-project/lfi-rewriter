@@ -3,7 +3,7 @@ call *%rax
 .bundle_align_mode 5
 .bundle_lock
 andl $0xffffffe0, %eax
-orq %r14, %rax
+addq %r14, %rax
 callq *%rax
 .bundle_unlock
 .p2align 5
@@ -14,7 +14,7 @@ call *32+output(%rip)
 movq 32+output(%rip), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 callq *%r11
 .bundle_unlock
 .p2align 5
@@ -25,7 +25,7 @@ jmp *(%rax)
 movq %gs:(%eax), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 jmp *%r11
 .bundle_unlock
 ------
@@ -35,7 +35,7 @@ callq *(%rax, %rdi, 4)
 movq %gs:(%eax, %edi, 4), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 callq *%r11
 .bundle_unlock
 .p2align 5
@@ -45,7 +45,7 @@ notrack jmp *%rax
 .bundle_align_mode 5
 .bundle_lock
 andl $0xffffffe0, %eax
-orq %r14, %rax
+addq %r14, %rax
 notrack jmp *%rax
 .bundle_unlock
 ------
@@ -55,7 +55,7 @@ callq *__cxa_finalize@GOTPCREL(%rip)
 movq __cxa_finalize@GOTPCREL(%rip), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 callq *%r11
 .bundle_unlock
 .p2align 5
@@ -72,7 +72,7 @@ ret
 popq %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 jmpq *%r11
 .bundle_unlock
 ------
@@ -82,7 +82,7 @@ callq *(%rsp)
 movq (%rsp), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 callq *%r11
 .bundle_unlock
 .p2align 5

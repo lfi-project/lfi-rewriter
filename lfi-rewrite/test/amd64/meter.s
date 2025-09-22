@@ -3,7 +3,7 @@ jmpq *%rax
 .bundle_align_mode 5
 .bundle_lock
 andl $0xffffffe0, %eax
-orq %r14, %rax
+addq %r14, %rax
 sub $512, %r12
 nop
 nop

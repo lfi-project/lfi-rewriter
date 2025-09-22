@@ -1,3 +1,4 @@
 subprojects/libargp
 subprojects/zydis
 subprojects/fadec
+.cache

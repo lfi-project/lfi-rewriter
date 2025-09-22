@@ -168,10 +168,10 @@ bundle_mask(const char* reg)
     if (args.boxtype > BOX_BUNDLEJUMPS && args.p2size == 0) {
         mkinsn("andq %%r15, %s", reg);
         mkinsn("andq $0xffffffff%s, %s", bundle_mask_constant(), reg);
-        mkinsn("orq %%r14, %s", reg);
+        mkinsn("addq %%r14, %s", reg);
     } else if (args.boxtype > BOX_BUNDLEJUMPS) {
         mkinsn("andl $0x%s, %s", bundle_mask_constant(), lo(reg));
-        mkinsn("orq %%r14, %s", reg);
+        mkinsn("addq %%r14, %s", reg);
     } else {
         mkinsn("andq $0xffffffff%s, %s", bundle_mask_constant(), reg);
     }

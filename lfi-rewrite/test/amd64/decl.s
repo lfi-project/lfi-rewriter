@@ -19,7 +19,7 @@ callq *(%rax)
 movq %gs:(%eax), %r11
 .bundle_lock
 andl $0xffffffe0, %r11d
-orq %r14, %r11
+addq %r14, %r11
 callq *%r11
 .bundle_unlock
 .p2align 5
